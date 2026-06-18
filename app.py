@@ -15,44 +15,107 @@ HTML = """<!DOCTYPE html>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CI/CD 实验 — Flask App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: #0a0a0a;
             min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            color: #ffffff;
+        }
+        .container {
+            max-width: 480px; width: 90%; padding: 48px 24px;
+        }
+        .eyebrow {
+            font-family: 'GeistMono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+            font-size: 14px; font-weight: 400; line-height: 20px;
+            letter-spacing: 1.4px; text-transform: uppercase;
+            color: #7d8187; margin-bottom: 16px;
+        }
+        h1 {
+            font-size: 48px; font-weight: 400; line-height: 48px;
+            letter-spacing: -1.2px; margin-bottom: 24px;
+        }
+        .version {
+            font-size: 14px; color: #7d8187; margin-bottom: 32px;
+        }
+        .status {
+            display: inline-block; background: transparent;
+            color: #ffffff; padding: 8px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 9999px; font-size: 14px; margin-bottom: 48px;
         }
         .card {
-            background: #fff; border-radius: 16px; padding: 48px 40px;
-            max-width: 500px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            text-align: center;
+            background: #191919; border: 1px solid #212327;
+            border-radius: 8px; padding: 24px; margin-bottom: 16px;
         }
-        h1 { color: #333; font-size: 28px; margin-bottom: 8px; }
-        .version { color: #764ba2; font-size: 14px; font-weight: 600; margin-bottom: 24px; }
-        .status { display: inline-block; background: #e8f5e9; color: #2e7d32;
-                  padding: 6px 16px; border-radius: 20px; font-size: 14px; margin-bottom: 24px; }
-        .info { background: #f5f5f5; border-radius: 8px; padding: 16px;
-                text-align: left; font-size: 13px; color: #666; line-height: 1.8; }
-        .info span { color: #333; font-weight: 600; }
-        .student-info { margin-top: 20px; background: #e3f2fd; border-radius: 8px; padding: 16px;
-                       text-align: left; font-size: 13px; color: #1565c0; line-height: 1.8; }
-        .student-info span { color: #0d47a1; font-weight: 600; }
+        .card-title {
+            font-family: 'GeistMono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+            font-size: 12px; font-weight: 400; line-height: 16px;
+            letter-spacing: 1.2px; text-transform: uppercase;
+            color: #7d8187; margin-bottom: 16px;
+        }
+        .info-row {
+            display: flex; justify-content: space-between;
+            padding: 12px 0; border-bottom: 1px solid #212327;
+        }
+        .info-row:last-child { border-bottom: none; }
+        .info-label { color: #7d8187; font-size: 14px; }
+        .info-value { color: #ffffff; font-size: 14px; }
+        .student-card {
+            background: #191919; border: 1px solid #212327;
+            border-radius: 8px; padding: 24px; margin-top: 32px;
+        }
+        .student-row {
+            display: flex; justify-content: space-between;
+            padding: 12px 0; border-bottom: 1px solid #212327;
+        }
+        .student-row:last-child { border-bottom: none; }
+        .student-label { color: #7d8187; font-size: 14px; }
+        .student-value { color: #ffffff; font-size: 14px; }
+        .footer {
+            margin-top: 48px; text-align: center;
+            color: #7d8187; font-size: 12px;
+        }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1>🚀 CI/CD 部署成功！</h1>
-        <p class="version">Flask App v3.0 | Python {{ python_version }}</p>
-        <div class="status">✅ 服务运行正常</div>
-        <div class="info">
-            <p><span>容器 ID：</span>{{ hostname }}</p>
-            <p><span>部署时间：</span>{{ deploy_time }}</p>
-            <p><span>环境：</span>{{ environment }}</p>
+    <div class="container">
+        <div class="eyebrow">CI/CD DEPLOYMENT</div>
+        <h1>部署成功</h1>
+        <p class="version">Flask App v3.0 · Python {{ python_version }}</p>
+        <div class="status">服务运行正常</div>
+
+        <div class="card">
+            <div class="card-title">系统信息</div>
+            <div class="info-row">
+                <span class="info-label">容器 ID</span>
+                <span class="info-value">{{ hostname }}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">部署时间</span>
+                <span class="info-value">{{ deploy_time }}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">环境</span>
+                <span class="info-value">{{ environment }}</span>
+            </div>
         </div>
-        <div class="student-info">
-            <p><span>学号：</span>{{ student_id }}</p>
-            <p><span>姓名：</span>{{ student_name }}</p>
+
+        <div class="student-card">
+            <div class="card-title">学生信息</div>
+            <div class="student-row">
+                <span class="student-label">学号</span>
+                <span class="student-value">{{ student_id }}</span>
+            </div>
+            <div class="student-row">
+                <span class="student-label">姓名</span>
+                <span class="student-value">{{ student_name }}</span>
+            </div>
         </div>
+
+        <div class="footer">SOFTWARE ENGINEERING · CI/CD LAB</div>
     </div>
 </body>
 </html>"""
