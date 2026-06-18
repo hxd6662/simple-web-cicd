@@ -20,12 +20,18 @@ HTML = """<!DOCTYPE html>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background: #0a0a0a;
+            background: #0a0a0a url('/static/bg.jpg') center/cover no-repeat fixed;
             min-height: 100vh; display: flex; align-items: center; justify-content: center;
             color: #ffffff;
+            position: relative;
+        }
+        body::before {
+            content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.75); z-index: 0;
         }
         .container {
             max-width: 480px; width: 90%; padding: 48px 24px;
+            position: relative; z-index: 1;
         }
         .eyebrow {
             font-family: 'GeistMono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
